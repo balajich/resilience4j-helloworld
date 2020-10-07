@@ -16,7 +16,6 @@ public class GreetingController {
     };
   
     @GetMapping("/greeting")
-
     @Retry(name = "greetingRetry")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         // This method returns Hello World only when called three times

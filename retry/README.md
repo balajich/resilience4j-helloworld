@@ -33,39 +33,58 @@ Overview
 -  Import **resilience4j-helloworld.jmx** and run retry thread group.
 - ![jmeter](jmeter.png "jmeter")
 # Code
-- All the microservices configurations are present in a folder **config-repo**
-- In config-repo folder **application.yml** contains common configurations across microservices
-- Save every microservice configuration with microservicename.yml. This will be default profile for the microservice
-- For example employee-api.yml contains a configuration of employee-api microservice with default profile.
-- Every microservice should have **boostrap.yml** that contains information to connect to config server.
-- Every microservice should have **spring-cloud-config-server** and **spring-retry** as dependency
-
-**pom.xml** for employee-api
+Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
+spring-boot-starter-actuator,spring-boot-starter-aop**
+**pom.xml** for retry restapi 
 ```xml
 <dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-config</artifactId>
+    <groupId>io.github.resilience4j</groupId>
+    <artifactId>resilience4j-spring-boot2</artifactId>
+    <version>1.4.0</version>
 </dependency>
 <dependency>
-    <groupId>org.springframework.retry</groupId>
-    <artifactId>spring-retry</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
 </dependency>
 ```
-**boostrap.yml** of employee-api, Where it points to configuration server
+In **application.yml** of define the behavior of retry module
+- maxAttempts: The maximum number of retry attempts
+- waitDuration: A fixed wait duration between retry attempts
+- retryExceptions: Configures a list of error classes that are recorded as a failure and thus are retried.
+Retry module will invoke maximum of three times and waits 100 milliseconds between each invocation. It will only 
+get invoked if the calling method throws  **java.lang.RuntimeException** exception.
 ```yaml
- app.config-server: localhost
- 
- spring:
-   application.name: employee-api
-   cloud.config:
-     failFast: true
+ resilience4j:
      retry:
-       initialInterval: 3000
-       multiplier: 1.3
-       maxInterval: 10000
-       maxAttempts: 20
-     uri: http://localhost:8888
+         configs:
+             default:
+                 maxAttempts: 3
+                 waitDuration: 100ms
+                 retryExceptions:
+                     - java.lang.RuntimeException
+         instances:
+             greetingRetry:
+                 baseConfig: default
 ```
+```java
+@GetMapping("/greeting")
+    @Retry(name = "greetingRetry")
+    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        // This method returns Hello World only when called three times
+        Integer calledCount = count.get();
+        System.out.println(String.format("Called count %d", calledCount));
+        if (calledCount < 2) {
+            count.set(++calledCount);
+            throw new RuntimeException("Unable to serve request");
+        }
+        return ResponseEntity.ok().body("Hello World: " + name);
+    }
+```
+
 # References
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 - https://www.baeldung.com/resilience4j
