@@ -1,0 +1,15 @@
+resilience4j:
+    circuitbreaker:
+        configs:
+            default:
+                slidingWindowSize: 10
+                slidingWindowType: COUNT_BASED
+                minimumNumberOfCalls: 1
+                permittedNumberOfCallsInHalfOpenState: 3
+                automaticTransitionFromOpenToHalfOpenEnabled: true
+                waitDurationInOpenState: 5s
+        instances:
+            greetingCircuitSlow:
+                baseConfig: default
+                slowCallRateThreshold: 50
+                slowCallDurationThreshold: 1s

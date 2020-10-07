@@ -1,0 +1,11 @@
+resilience4j:
+    retry:
+        configs:
+            default:
+                maxAttempts: 3
+                waitDuration: 100ms
+                retryExceptions:
+                    - java.lang.RuntimeException
+        instances:
+            greetingRetry:
+                baseConfig: default
