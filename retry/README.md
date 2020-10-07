@@ -20,8 +20,8 @@ Overview
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
 # Build
-    - ``` cd  resilience4j-helloworld ```
-    - ``` mvn clean install ```
+- ``` cd  resilience4j-helloworld ```
+- ``` mvn clean install ```
 
 # Running RESTAPI
 - REST API Server: ``` java -jar .\retry\target\retry-0.0.1-SNAPSHOT.jar ```
