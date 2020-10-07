@@ -1,8 +1,8 @@
-# Making RESTAPI fault tolerant using Retry Mechanism  
+# Making RESTAPI fault tolerant using Retry Mechanism  - resilience4j
 In  this tutorial we are going to learn how make spring boot based RESTAPI fault tolerant. Under certain circumstances we 
 observed that subsystem works well when we retry the same request. To handle such scenarios we can use **resilience4j retry**
 module.
-- Using **Retry** automatically retry a failed call.
+- Using **Retry module** automatically retry a failed call.
 - This functionality can be achieved easily with annotation **@Retry** without writing explicit code. 
 
 Overview
