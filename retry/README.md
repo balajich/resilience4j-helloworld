@@ -1,13 +1,13 @@
 # Resilience4j- Making RESTAPI fault tolerant using Retry 
 In  this tutorial we are going to learn how make spring boot based RESTAPI fault tolerant. Under certain circumstances we 
-observed that subsystem works well when we retry the same request. To handle such scenarios we can use **resilience4j retry**
+observe that subsystem works well when we retry the same request. To handle such scenarios we can use **resilience4j retry**
 module.
 - Using **Retry module** automatically retry a failed call.
 - This functionality can be achieved easily with annotation **@Retry** without writing explicit code. 
 
 Overview
 - User makes a call to greeting RESTAPI to get a greeting message.
-- **greeting** method  returns valid response only when called three times.
+- **greeting** method  returns valid response only when called three times else it will throw **RuntimeException**.
 - This behavior can be easily handled with annotation **Retry**
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/retry](https://github.com/balajich/resilience4j-helloworld/tree/master/retry) 
@@ -30,7 +30,7 @@ Overview
 - Call Greeting API: ``` curl -s -L  http://localhost:8080/greeting ```
 # Using JMeter
 - JMeter Script is provided to generate two successive calls.
--  Import **resilience4j-helloworld.jmx** and run retry thread group.
+-  Import **resilience4j-helloworld.jmx** and run **retry** thread group.
 - ![jmeter](jmeter.png "jmeter")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
@@ -55,8 +55,8 @@ In **application.yml** of define the behavior of retry module
 - maxAttempts: The maximum number of retry attempts
 - waitDuration: A fixed wait duration between retry attempts
 - retryExceptions: Configures a list of error classes that are recorded as a failure and thus are retried.
-Retry module will invoke maximum of three times and waits 100 milliseconds between each invocation. It will only 
-get invoked if the calling method throws  **java.lang.RuntimeException** exception.
+Retry function will be invoked a maximum of three times. For each and every successive invocation  it will wait for 100
+milliseconds. A retry will happen only when  **java.lang.RuntimeException** is thrown.
 ```yaml
  resilience4j:
      retry:
