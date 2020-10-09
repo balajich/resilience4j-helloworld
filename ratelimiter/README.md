@@ -33,7 +33,7 @@ and user is served with HTTP status code 429 (Too Many Requests)
 
 # Using JMeter to generate more than 5 calls in a second
 - JMeter Script is provided to generate  calls
--  Import **resilience4j-helloworld.jmx** and run **retry** thread group.
+-  Import **resilience4j-helloworld.jmx** and run **ratelimiter** thread group.
 - ![jmeter](jmeter.png "jmeter")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
