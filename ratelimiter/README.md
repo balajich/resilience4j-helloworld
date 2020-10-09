@@ -1,4 +1,4 @@
-# Resilience4j- Limit of number of requests to RESTAPI using ratelimiter 
+# Resilience4j- Session-1 Limit number of requests to RESTAPI using ratelimiter 
 In  this tutorial we are going to learn how to limit number of requests that a restapi can handle in a fixed duration. 
 There are several reasons to limit number of calls than an api can hanlde,few of them are.
 - To meet service level agreement
@@ -17,8 +17,8 @@ and user is served with HTTP status code 429 (Too Many Requests)
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/ratelimiter](https://github.com/balajich/resilience4j-helloworld/tree/master/ratelimiter) 
 # Video
-[![Spring Cloud Session-7 Centralized Configuration](https://img.youtube.com/vi/9hdTfz7NOqs/0.jpg)](https://www.youtube.com/watch?v=9hdTfz7NOqs)
-- https://youtu.be/9hdTfz7NOqs
+[![Spring Cloud Session-7 Centralized Configuration](https://img.youtube.com/vi/j9cH01mlK6k/0.jpg)](https://www.youtube.com/watch?v=j9cH01mlK6k)
+- https://youtu.be/j9cH01mlK6k
 # Architecture
 ![architecture](architecture.png "architecture")
 # Prerequisite
