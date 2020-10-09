@@ -1,7 +1,10 @@
-# Resilience4j- Making RESTAPI fault tolerant using Retry 
-In  this tutorial we are going to learn how make spring boot based RESTAPI fault tolerant. Under certain circumstances we 
-observe that subsystem works well when we retry the same request. To handle such scenarios we can use **resilience4j retry**
-module.
+# Resilience4j- Limit of number of requests to RESTAPI using ratelimiter 
+In  this tutorial we are going to learn how to limit number of requests that a restapi can handle in a fixed duration. 
+There are several reasons to limit number of calls than an api can hanlde,few of them are.
+- To meet service level agreement
+- Protect resources from an overload and Denial of Service (DoS) attacks
+
+Overview
 - Using **Retry module** automatically retry a failed call.
 - This functionality can be achieved easily with annotation **@Retry** without writing explicit code. 
 
