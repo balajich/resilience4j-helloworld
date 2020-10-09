@@ -22,6 +22,7 @@ and user is served with HTTP status code 429 (Too Many Requests)
 # Architecture
 ![architecture](architecture.png "architecture")
 # Prerequisite
+- User should have basic understanding of RESTAPI and Spring boot
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
 # Build
