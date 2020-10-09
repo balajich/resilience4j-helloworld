@@ -13,7 +13,7 @@ Overview
 - if the method receives more than 5 concurrent requests at a given time  **io.github.resilience4j.bulkhead.BulkheadFullException** 
 is thrown and user is served with HTTP status code 429 (Too Many Requests)  
 # Source Code 
-- [https://github.com/balajich/resilience4j-helloworld/tree/master/ratelimiter](https://github.com/balajich/resilience4j-helloworld/tree/master/ratelimiter) 
+- [https://github.com/balajich/resilience4j-helloworld/tree/master/bulkhead](https://github.com/balajich/resilience4j-helloworld/tree/master/bulkhead) 
 # Video
 [![Spring Cloud Session-7 Centralized Configuration](https://img.youtube.com/vi/9hdTfz7NOqs/0.jpg)](https://www.youtube.com/watch?v=9hdTfz7NOqs)
 - https://youtu.be/9hdTfz7NOqs
@@ -32,12 +32,12 @@ is thrown and user is served with HTTP status code 429 (Too Many Requests)
 
 # Using JMeter to generate more than 5 calls in a second
 - JMeter Script is provided to generate  calls
--  Import **resilience4j-helloworld.jmx** and run **ratelimiter** thread group.
+-  Import **resilience4j-helloworld.jmx** and run **bulkhead** thread group.
 - ![jmeter](jmeter.png "jmeter")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
-**pom.xml** of  ratelimiter 
+**pom.xml** of  bulkhead 
 ```xml
 <dependency>
     <groupId>io.github.resilience4j</groupId>
