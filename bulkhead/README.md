@@ -30,7 +30,7 @@ is thrown and user is served with HTTP status code 429 (Too Many Requests)
 # Running RESTAPI
 - REST API Server: ``` java -jar .\bulkhead\target\bulkhead-0.0.1-SNAPSHOT.jar ```
 
-# Using JMeter to generate more than 5 calls in a second
+# Using JMeter to generate more than 5 concurrent calls
 - JMeter Script is provided to generate  calls
 -  Import **resilience4j-helloworld.jmx** and run **bulkhead** thread group.
 - ![jmeter](jmeter.png "jmeter")
