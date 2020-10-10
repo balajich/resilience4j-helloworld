@@ -104,9 +104,9 @@ milliseconds. A retry will happen only when  **org.springframework.web.client.Ht
 
 
 # References
+- https://resilience4j.readme.io/docs/circuitbreaker
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 - https://www.baeldung.com/resilience4j
-- Spring Microservices in Action by John Carnell 
 - Hands-On Microservices with Spring Boot and Spring Cloud: Build and deploy Java microservices 
 using Spring Cloud, Istio, and Kubernetes -Magnus Larsson
 # Next Tutorial
