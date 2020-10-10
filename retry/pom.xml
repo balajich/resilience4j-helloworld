@@ -11,7 +11,7 @@
     <groupId>org.eduami.spring</groupId>
     <artifactId>retry</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ratelimiter</name>
+    <name>retry</name>
     <description>Demo project for resiliency</description>
 
     <properties>
