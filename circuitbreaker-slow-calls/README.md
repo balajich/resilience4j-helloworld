@@ -43,7 +43,7 @@ Overview
 - ![jmeterb](jmeterb.png "jmeterb")
 - run **circuitbreaker-error-calls-servicea** thread group.
 - Observe the average response time is significantly dropped to 0.214 seconds
-- The reason for improvement in performance is  ServiceA doesnt call ServiceB when there is a drop in performance instead
+- The reason for improvement in performance is. The ServiceA doesn't call ServiceB when there is a drop in performance instead
 it serves from a cache. 
 - ![jmetera](jmetera.png "jmetera")
 
