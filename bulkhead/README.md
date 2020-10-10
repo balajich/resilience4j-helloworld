@@ -11,7 +11,7 @@ Overview
 - **greeting** api can only handle can only handle 5  concurrent requests at a given time.
 - This limitation can be set on greeting method using annotation **@Bulkhead**
 - if the method receives more than 5 concurrent requests at a given time  **io.github.resilience4j.bulkhead.BulkheadFullException** 
-is thrown and user is served with HTTP status code 429 (Too Many Requests)  
+is thrown.The user is served with HTTP status code 503 and asked to retry after 10 seconds.  
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/bulkhead](https://github.com/balajich/resilience4j-helloworld/tree/master/bulkhead) 
 # Video
@@ -33,6 +33,7 @@ is thrown and user is served with HTTP status code 429 (Too Many Requests)
 # Using JMeter to generate more than 5 concurrent calls
 - JMeter Script is provided to generate  calls
 -  Import **resilience4j-helloworld.jmx** and run **bulkhead** thread group.
+- Obeseve only 5 concurrent calls are successful rest of them fail with 500
 - ![jmeter](jmeter.png "jmeter")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
