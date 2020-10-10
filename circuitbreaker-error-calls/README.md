@@ -42,7 +42,7 @@ a cache.
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-serviceb** thread group.
 - Observe serviceB will generate 50% of errors
-- ![jmeter](jmeter.png "jmeter")
+- ![jmeter](jmeterb.png "jmeter")
 - run **circuitbreaker-error-calls-servicea** thread group.
 - Observe serviceA will generate 100% of success even serviceB returns errors, Further more it doesn't makes calls 
 to serviceB until it recovers.
