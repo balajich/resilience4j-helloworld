@@ -42,10 +42,11 @@ a cache.
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-serviceb** thread group.
 - Observe serviceB will generate 50% of errors
-- ![jmeter](jmeterb.png "jmeter")
+- ![jmeterb](jmeterb.png "jmeterb")
 - run **circuitbreaker-error-calls-servicea** thread group.
 - Observe serviceA will generate 100% of success even serviceB returns errors, Further more it doesn't makes calls 
 to serviceB until it recovers.
+- ![jmetera](jmetera.png "jmetera")
 # Code
 Include following artifacts as dependency for spring boot restapi serviceA application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
