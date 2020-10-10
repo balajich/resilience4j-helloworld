@@ -20,22 +20,26 @@ Overview
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
 # Build
-- ``` cd  resilience4j-helloworld ```
+- ``` cd  resilience4j-helloworld\retry ```
 - ``` mvn clean install ```
 
 # Running RESTAPI
-- REST API Server: ``` java -jar .\retry\target\retry-0.0.1-SNAPSHOT.jar ```
+- ServiceA: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
+- ServiceB: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
 
-# Using curl to test environment
-- Call Greeting API: ``` curl -s -L  http://localhost:8080/greeting ```
 # Using JMeter to test environment
-- JMeter Script is provided to generate two successive calls.
--  Import **resilience4j-helloworld.jmx** and run **retry** thread group.
-- ![jmeter](jmeter.png "jmeter")
+- JMeter Script is provided to generate call.
+- Import **resilience4j-helloworld.jmx** and run **retry-serviceb** thread group.
+- Observe serviceB will generate 50% of errors
+- ![jmeterb](jmeterb.png "jmeterb")
+- run **retry-serviceb** thread group.
+- Observe serviceA will generate 100% of success even serviceB returns errors, This is because when ServiceA gets error
+from serviceB it retries.
+- ![jmetera](jmetera.png "jmetera")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
-**pom.xml** for retry restapi 
+**pom.xml** for ServiceA 
 ```xml
 <dependency>
     <groupId>io.github.resilience4j</groupId>
@@ -56,7 +60,7 @@ In **application.yml** of define the behavior of retry module
 - waitDuration: A fixed wait duration between retry attempts
 - retryExceptions: Configures a list of error classes that are recorded as a failure and thus are retried.
 Retry function will be invoked a maximum of three times. For each and every successive invocation  it will wait for 100
-milliseconds. A retry will happen only when  **java.lang.RuntimeException** is thrown.
+milliseconds. A retry will happen only when  **org.springframework.web.client.HttpServerErrorException** is thrown by ServiceB.
 ```yaml
  resilience4j:
      retry:
@@ -65,7 +69,7 @@ milliseconds. A retry will happen only when  **java.lang.RuntimeException** is t
                  maxAttempts: 3
                  waitDuration: 100ms
                  retryExceptions:
-                     - java.lang.RuntimeException
+                     - org.springframework.web.client.HttpServerErrorException
          instances:
              greetingRetry:
                  baseConfig: default
@@ -74,16 +78,30 @@ milliseconds. A retry will happen only when  **java.lang.RuntimeException** is t
 @GetMapping("/greeting")
     @Retry(name = "greetingRetry")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        // This method returns Hello World only when called three times
-        Integer calledCount = count.get();
-        System.out.println(String.format("Called count %d", calledCount));
-        if (calledCount < 2) {
-            count.set(++calledCount);
-            throw new RuntimeException("Unable to serve request");
-        }
-        return ResponseEntity.ok().body("Hello World: " + name);
+        System.out.println("Greeting method is invoked");
+        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/serviceBgreeting?name=" + name, String.class);
+        //update cache
+        return responseEntity;
     }
 ```
+ServiceB is a simple springboot based REST API application. With generates 50% errors
+```java
+ Random random = new Random(-6732303926L);
+    @GetMapping("/serviceBgreeting")
+    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "serviceB") String name) {
+        return generateErrorBehavior(name);
+    }
+
+    private ResponseEntity generateErrorBehavior(String name) {
+        int i = random.nextInt(2);
+        if (i == 0) {
+            System.out.println("Service B Generated Exception");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Service B Generated Exception");
+        }
+        return ResponseEntity.ok().body("Hello " + name);
+    }
+``` 
+
 
 # References
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status

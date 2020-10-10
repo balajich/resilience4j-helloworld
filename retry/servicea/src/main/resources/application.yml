@@ -5,7 +5,7 @@ resilience4j:
                 maxAttempts: 3
                 waitDuration: 100ms
                 retryExceptions:
-                    - java.lang.RuntimeException
+                    - org.springframework.web.client.HttpServerErrorException
         instances:
             greetingRetry:
                 baseConfig: default
