@@ -13,7 +13,7 @@ Overview
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/retry](https://github.com/balajich/resilience4j-helloworld/tree/master/retry) 
 # Video
 [![Resilience4j Session-3  Making RESTAPI fault tolerant using Retry](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
-- https://youtu.be/vKIELihjRjY**
+- https://youtu.be/vKIELihjRjY 
 # Architecture
 ![architecture](architecture.png "architecture")
 # Prerequisite
@@ -24,22 +24,22 @@ Overview
 - ``` mvn clean install ```
 
 # Running RESTAPI
-- ServiceA: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
-- ServiceB: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
+- **ServiceA**: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
+- **ServiceB**: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
 
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
-- Import **resilience4j-helloworld.jmx** and run **retry-serviceb** thread group.
-- Observe serviceB will generate 50% of errors
+- Import **resilience4j-helloworld.jmx** and run **retry-**ServiceB**** thread group.
+- Observe **ServiceB** will generate 50% of errors
 - ![jmeterb](jmeterb.png "jmeterb")
-- run **retry-serviceb** thread group.
-- Observe serviceA will generate 100% of success even serviceB returns errors, This is because when ServiceA gets error
-from serviceB it retries.
+- run **retry-**ServiceB**** thread group.
+- Observe **ServiceA** will generate 100% of success even **ServiceB** returns errors, This is because when **ServiceA** gets error
+from **ServiceB** it retries.
 - ![jmetera](jmetera.png "jmetera")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
-**pom.xml** for ServiceA 
+**pom.xml** for **ServiceA** 
 ```xml
 <dependency>
     <groupId>io.github.resilience4j</groupId>
@@ -60,7 +60,7 @@ In **application.yml** of define the behavior of retry module
 - waitDuration: A fixed wait duration between retry attempts
 - retryExceptions: Configures a list of error classes that are recorded as a failure and thus are retried.
 Retry function will be invoked a maximum of three times. For each and every successive invocation  it will wait for 100
-milliseconds. A retry will happen only when  **org.springframework.web.client.HttpServerErrorException** is thrown by ServiceB.
+milliseconds. A retry will happen only when  **org.springframework.web.client.HttpServerErrorException** is thrown by **ServiceB**.
 ```yaml
  resilience4j:
      retry:
@@ -79,16 +79,16 @@ milliseconds. A retry will happen only when  **org.springframework.web.client.Ht
     @Retry(name = "greetingRetry")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         System.out.println("Greeting method is invoked");
-        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/serviceBgreeting?name=" + name, String.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/**ServiceB**greeting?name=" + name, String.class);
         //update cache
         return responseEntity;
     }
 ```
-ServiceB is a simple springboot based REST API application. With generates 50% errors
+**ServiceB** is a simple springboot based REST API application. With generates 50% errors
 ```java
  Random random = new Random(-6732303926L);
-    @GetMapping("/serviceBgreeting")
-    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "serviceB") String name) {
+    @GetMapping("/**ServiceB**greeting")
+    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "**ServiceB**") String name) {
         return generateErrorBehavior(name);
     }
 
