@@ -9,6 +9,8 @@ Vagrant.configure(2) do |config|
     r4jserver.vm.hostname = "r4jserver.eduami.org"
     r4jserver.vm.network "private_network", ip: "192.168.50.26"
     r4jserver.vm.network "forwarded_port", guest: 8080, host: 8080
+    r4jserver.vm.network "forwarded_port", guest: 9090, host: 9090
+    r4jserver.vm.network "forwarded_port", guest: 3000, host: 3000
     r4jserver.vm.provision "shell", path: "startup-r4jserver.sh"
     r4jserver.vm.provider "virtualbox" do |vb|
       vb.name = "r4jserver"

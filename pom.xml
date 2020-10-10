@@ -17,6 +17,7 @@
 		<module>ratelimiter</module>
         <module>bulkhead</module>
 		<module>retry</module>
+        <module>ratelimiter-grafana-prometheus-monitor</module>
     </modules>
 
 </project>
