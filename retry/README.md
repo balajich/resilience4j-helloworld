@@ -12,8 +12,8 @@ Overview
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/retry](https://github.com/balajich/resilience4j-helloworld/tree/master/retry) 
 # Video
-[![Spring Cloud Session-7 Centralized Configuration](https://img.youtube.com/vi/9hdTfz7NOqs/0.jpg)](https://www.youtube.com/watch?v=9hdTfz7NOqs)
-- https://youtu.be/9hdTfz7NOqs
+[![Resilience4j Session-3  Making RESTAPI fault tolerant using Retry](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
+- https://youtu.be/vKIELihjRjY**
 # Architecture
 ![architecture](architecture.png "architecture")
 # Prerequisite
