@@ -18,7 +18,7 @@ public class GreetingController {
     RestTemplate restTemplate;
 
     @GetMapping("/greeting")
-    @CircuitBreaker(name = "greetingCircuit", fallbackMethod = "greetingFallBack")
+    @CircuitBreaker(name = "greetingCircuitSlow", fallbackMethod = "greetingFallBack")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/serviceBgreeting?name=" + name, String.class);
         //update cache

@@ -10,10 +10,9 @@ instead of repeatedly calling B, the microservice A should take a break (not cal
 Overview
 - User makes a call to get greeting message from  REST API ServiceA
 - ServiceA calls ServiceB to fetch greeting message
-- Because of some random issue 50% of calls to ServiceB takes more than 2 seconds
-- When ever ServiceA gets error message from ServiceB instead of returning error message to client, it will return message from 
-a cache.
-- When ever error rate increases beyond 50% ServiceA doesn't call ServiceB until ServiceB recovers or **waitDurationInOpenState** is finished
+- The usual response time of ServiceB is 10 milliseconds, Because of some random issue 50% of calls to ServiceB takes more than 2 seconds.
+- This slowness behavior of ServiceB shouldn't impact Service A.
+- When ever ServiceA sees 50% (out of 5 ) are taking more than 10 milliseconds, it is not going to call ServiceB and returns the response from cachce.
 - This entire functionality can be achieved with  **Circuit Breaker** pattern
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls](https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls) 
@@ -30,7 +29,7 @@ a cache.
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
 # Build
-- ``` cd  resilience4j-helloworld\circuitbreaker-error-calls ```
+- ``` cd  resilience4j-helloworld\circuitbreaker-slow-calls ```
 - ``` mvn clean install ```
 
 # Running 
@@ -39,12 +38,13 @@ a cache.
 
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
-- Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-serviceb** thread group.
-- Observe serviceB will generate 50% of errors
+- Import **resilience4j-helloworld.jmx** and run **circuitbreaker-slow-calls-serviceb** thread group.
+- This will generate 20 requests and Observe 50% of calls are taking 2 seconds and average response time 1.014 seconds
 - ![jmeterb](jmeterb.png "jmeterb")
 - run **circuitbreaker-error-calls-servicea** thread group.
-- Observe serviceA will generate 100% of success even serviceB returns errors, Further more it doesn't makes calls 
-to serviceB until it recovers.
+- Observe the average response time is significantly dropped to 0.214 seconds
+- The reason for improvement in performance is  ServiceA doesnt call ServiceB when there is a drop in performance instead
+it serves from a cache. 
 - ![jmetera](jmetera.png "jmetera")
 
 # Code
@@ -71,10 +71,8 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
 - slidingWindowType: Configures the type of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed
 - minimumNumberOfCalls: Configures the minimum number of calls which are required (per sliding window period) before the CircuitBreaker can calculate the error rate or slow call rate.
 - waitDurationInOpenState: The time that the CircuitBreaker should wait before transitioning from open to half-open.
-- maxAttempts: The maximum number of retry attempts
-- waitDuration: A fixed wait duration between retry attempts
-- retryExceptions: Configures a list of error classes that are recorded as a failure and thus are retried.
-- failureRateThreshold: Configures the failure rate threshold in percentage.
+- slowCallRateThreshold: Configures a threshold in percentage. The CircuitBreaker considers a call as slow when the call duration is greater than slowCallDurationThreshold
+- slowCallDurationThreshold: Configures the duration threshold above which calls are considered as slow and increase the rate of slow calls.
 ```yaml
  resilience4j:
      circuitbreaker:
@@ -85,52 +83,54 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
                  minimumNumberOfCalls: 5
                  permittedNumberOfCallsInHalfOpenState: 3
                  automaticTransitionFromOpenToHalfOpenEnabled: true
-                 waitDurationInOpenState: 1s
+                 waitDurationInOpenState: 5s
          instances:
-             greetingCircuit:
+             greetingCircuitSlow:
                  baseConfig: default
-                 failureRateThreshold: 50
-                 recordExceptions:
-                     - org.springframework.web.client.HttpServerErrorException
+                 slowCallRateThreshold: 50
+                 slowCallDurationThreshold: 10ms
 ```
 ```java
  @GetMapping("/greeting")
-    @CircuitBreaker(name = "greetingCircuit", fallbackMethod = "greetingFallBack")
-    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/serviceBgreeting?name=" + name, String.class);
-        //update cache
-        cache = responseEntity.getBody().toString();
-        return responseEntity;
-    }
-
-    //Invoked when circuit is in open state
-    public ResponseEntity greetingFallBack(String name, io.github.resilience4j.circuitbreaker.CallNotPermittedException ex) {
-        System.out.println("Circuit is in open state no further calls are accepted");
-        //return data from cache
-        return ResponseEntity.ok().body(cache);
-    }
-
-    //Invoked when call to serviceB failed
-    public ResponseEntity greetingFallBack(String name, HttpServerErrorException ex) {
-        System.out.println("Exception occurred when call calling service B");
-        //return data from cache
-        return ResponseEntity.ok().body(cache);
-    }
+     @CircuitBreaker(name = "greetingCircuitSlow", fallbackMethod = "greetingFallBack")
+     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+         ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/serviceBgreeting?name=" + name, String.class);
+         //update cache
+         cache = responseEntity.getBody().toString();
+         return responseEntity;
+     }
+ 
+     //Invoked when circuit is in open state
+     public ResponseEntity greetingFallBack(String name, io.github.resilience4j.circuitbreaker.CallNotPermittedException ex) {
+         System.out.println("Circuit is in open state no further calls are accepted");
+         //return data from cache
+         return ResponseEntity.ok().body(cache);
+     }
+ 
+     //Invoked when call to serviceB failed
+     public ResponseEntity greetingFallBack(String name, HttpServerErrorException ex) {
+         System.out.println("Exception occurred when call calling service B");
+         //return data from cache
+         return ResponseEntity.ok().body(cache);
+     }
 ```
-ServiceB is a simple rest api application, which generates 50% of faiulres
+ServiceB is a simple rest api application, where 50% of calls take 2 seconds
 ```java
 Random random = new Random(-6732303926L);
     @GetMapping("/serviceBgreeting")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "serviceB") String name) {
-        return generateErrorBehavior(name);
+        return generateSlowBehavior(name);
     }
 
-    private ResponseEntity generateErrorBehavior(String name) {
+    private ResponseEntity generateSlowBehavior(String name) {
         int i = random.nextInt(2);
         if (i == 0) {
-            System.out.println("Service B Generated Exception");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Service B Generated Exception");
-        }
+            try {
+                Thread.sleep(2*1000);//sleep for two seconds
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+        }//end of if
         return ResponseEntity.ok().body("Hello " + name);
     }
 ```

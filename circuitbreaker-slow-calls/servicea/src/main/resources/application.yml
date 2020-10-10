@@ -12,4 +12,4 @@ resilience4j:
             greetingCircuitSlow:
                 baseConfig: default
                 slowCallRateThreshold: 50
-                slowCallDurationThreshold: 1s
+                slowCallDurationThreshold: 10ms

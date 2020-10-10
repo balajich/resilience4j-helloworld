@@ -1,6 +1,5 @@
 package org.eduami.spring;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,10 +12,10 @@ public class GreetingController {
     Random random = new Random(-6732303926L);
     @GetMapping("/serviceBgreeting")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "serviceB") String name) {
-        return generateErrorBehavior(name);
+        return generateSlowBehavior(name);
     }
 
-    private ResponseEntity generateErrorBehavior(String name) {
+    private ResponseEntity generateSlowBehavior(String name) {
         int i = random.nextInt(2);
         if (i == 0) {
             try {
