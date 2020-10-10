@@ -15,8 +15,8 @@ is thrown and user is served with HTTP status code 429 (Too Many Requests)
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/bulkhead](https://github.com/balajich/resilience4j-helloworld/tree/master/bulkhead) 
 # Video
-[![Spring Cloud Session-7 Centralized Configuration](https://img.youtube.com/vi/9hdTfz7NOqs/0.jpg)](https://www.youtube.com/watch?v=9hdTfz7NOqs)
-- https://youtu.be/9hdTfz7NOqs
+[![Resilience4j- Session-2  Limit of number of concurrent requests to RESTAPI using bulkhead](https://img.youtube.com/vi/35fTH9G8gT0/0.jpg)](https://www.youtube.com/watch?v=35fTH9G8gT0)
+- https://youtu.be/35fTH9G8gT0
 # Architecture
 ![architecture](architecture.png "architecture")
 # Prerequisite
