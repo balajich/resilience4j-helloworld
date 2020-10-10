@@ -4,10 +4,10 @@ resilience4j:
             default:
                 slidingWindowSize: 10
                 slidingWindowType: COUNT_BASED
-                minimumNumberOfCalls: 1
+                minimumNumberOfCalls: 5
                 permittedNumberOfCallsInHalfOpenState: 3
                 automaticTransitionFromOpenToHalfOpenEnabled: true
-                waitDurationInOpenState: 5s
+                waitDurationInOpenState: 1s
         instances:
             greetingCircuit:
                 baseConfig: default

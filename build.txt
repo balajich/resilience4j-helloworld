@@ -1,0 +1,225 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] servicea                                                           [jar]
+[INFO] circuitbreaker-error-calls                                         [pom]
+[INFO] circuitbreaker-slow-calls                                          [jar]
+[INFO] ratelimiter                                                        [jar]
+[INFO] bulkhead                                                           [jar]
+[INFO] retry                                                              [jar]
+[INFO] resilience4j-helloworld                                            [pom]
+[INFO] 
+[INFO] ---------------------< org.eduami.spring:servicea >---------------------
+[INFO] Building servicea 0.0.1-SNAPSHOT                                   [1/7]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ servicea ---
+[INFO] Deleting C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-error-calls\servicea\target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ servicea ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ servicea ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-error-calls\servicea\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ servicea ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-error-calls\servicea\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ servicea ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ servicea ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ servicea ---
+[INFO] Building jar: C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-error-calls\servicea\target\servicea-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.2.RELEASE:repackage (repackage) @ servicea ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ servicea ---
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-error-calls\servicea\target\servicea-0.0.1-SNAPSHOT.jar to C:\Users\balaj\.m2\repository\org\eduami\spring\servicea\0.0.1-SNAPSHOT\servicea-0.0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-error-calls\servicea\pom.xml to C:\Users\balaj\.m2\repository\org\eduami\spring\servicea\0.0.1-SNAPSHOT\servicea-0.0.1-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------< org.eduami.spring:circuitbreaker-error-calls >------------
+[INFO] Building circuitbreaker-error-calls 0.0.1-SNAPSHOT                 [2/7]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ circuitbreaker-error-calls ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ circuitbreaker-error-calls ---
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-error-calls\pom.xml to C:\Users\balaj\.m2\repository\org\eduami\spring\circuitbreaker-error-calls\0.0.1-SNAPSHOT\circuitbreaker-error-calls-0.0.1-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------< org.eduami.spring:circuitbreaker-slow-calls >-------------
+[INFO] Building circuitbreaker-slow-calls 0.0.1-SNAPSHOT                  [3/7]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ circuitbreaker-slow-calls ---
+[INFO] Deleting C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-slow-calls\target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ circuitbreaker-slow-calls ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ circuitbreaker-slow-calls ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-slow-calls\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ circuitbreaker-slow-calls ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-slow-calls\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ circuitbreaker-slow-calls ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ circuitbreaker-slow-calls ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ circuitbreaker-slow-calls ---
+[INFO] Building jar: C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-slow-calls\target\circuitbreaker-slow-calls-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.2.RELEASE:repackage (repackage) @ circuitbreaker-slow-calls ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ circuitbreaker-slow-calls ---
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-slow-calls\target\circuitbreaker-slow-calls-0.0.1-SNAPSHOT.jar to C:\Users\balaj\.m2\repository\org\eduami\spring\circuitbreaker-slow-calls\0.0.1-SNAPSHOT\circuitbreaker-slow-calls-0.0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\circuitbreaker-slow-calls\pom.xml to C:\Users\balaj\.m2\repository\org\eduami\spring\circuitbreaker-slow-calls\0.0.1-SNAPSHOT\circuitbreaker-slow-calls-0.0.1-SNAPSHOT.pom
+[INFO] 
+[INFO] -------------------< org.eduami.spring:ratelimiter >--------------------
+[INFO] Building ratelimiter 0.0.1-SNAPSHOT                                [4/7]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ ratelimiter ---
+[INFO] Deleting C:\Users\balaj\IdeaProjects\resilience4j-helloworld\ratelimiter\target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ ratelimiter ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ ratelimiter ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Users\balaj\IdeaProjects\resilience4j-helloworld\ratelimiter\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ ratelimiter ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\balaj\IdeaProjects\resilience4j-helloworld\ratelimiter\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ ratelimiter ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ ratelimiter ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ ratelimiter ---
+[INFO] Building jar: C:\Users\balaj\IdeaProjects\resilience4j-helloworld\ratelimiter\target\ratelimiter-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.2.RELEASE:repackage (repackage) @ ratelimiter ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ ratelimiter ---
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\ratelimiter\target\ratelimiter-0.0.1-SNAPSHOT.jar to C:\Users\balaj\.m2\repository\org\eduami\spring\ratelimiter\0.0.1-SNAPSHOT\ratelimiter-0.0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\ratelimiter\pom.xml to C:\Users\balaj\.m2\repository\org\eduami\spring\ratelimiter\0.0.1-SNAPSHOT\ratelimiter-0.0.1-SNAPSHOT.pom
+[INFO] 
+[INFO] ---------------------< org.eduami.spring:bulkhead >---------------------
+[INFO] Building bulkhead 0.0.1-SNAPSHOT                                   [5/7]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ bulkhead ---
+[INFO] Deleting C:\Users\balaj\IdeaProjects\resilience4j-helloworld\bulkhead\target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ bulkhead ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ bulkhead ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Users\balaj\IdeaProjects\resilience4j-helloworld\bulkhead\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ bulkhead ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\balaj\IdeaProjects\resilience4j-helloworld\bulkhead\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ bulkhead ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ bulkhead ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ bulkhead ---
+[INFO] Building jar: C:\Users\balaj\IdeaProjects\resilience4j-helloworld\bulkhead\target\bulkhead-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.2.RELEASE:repackage (repackage) @ bulkhead ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ bulkhead ---
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\bulkhead\target\bulkhead-0.0.1-SNAPSHOT.jar to C:\Users\balaj\.m2\repository\org\eduami\spring\bulkhead\0.0.1-SNAPSHOT\bulkhead-0.0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\bulkhead\pom.xml to C:\Users\balaj\.m2\repository\org\eduami\spring\bulkhead\0.0.1-SNAPSHOT\bulkhead-0.0.1-SNAPSHOT.pom
+[INFO] 
+[INFO] ----------------------< org.eduami.spring:retry >-----------------------
+[INFO] Building retry 0.0.1-SNAPSHOT                                      [6/7]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ retry ---
+[INFO] Deleting C:\Users\balaj\IdeaProjects\resilience4j-helloworld\retry\target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ retry ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ retry ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Users\balaj\IdeaProjects\resilience4j-helloworld\retry\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ retry ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\balaj\IdeaProjects\resilience4j-helloworld\retry\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ retry ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ retry ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ retry ---
+[INFO] Building jar: C:\Users\balaj\IdeaProjects\resilience4j-helloworld\retry\target\retry-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.2.RELEASE:repackage (repackage) @ retry ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ retry ---
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\retry\target\retry-0.0.1-SNAPSHOT.jar to C:\Users\balaj\.m2\repository\org\eduami\spring\retry\0.0.1-SNAPSHOT\retry-0.0.1-SNAPSHOT.jar
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\retry\pom.xml to C:\Users\balaj\.m2\repository\org\eduami\spring\retry\0.0.1-SNAPSHOT\retry-0.0.1-SNAPSHOT.pom
+[INFO] 
+[INFO] -------------< org.eduami.spring:resilience4j-helloworld >--------------
+[INFO] Building resilience4j-helloworld 0.0.1-SNAPSHOT                    [7/7]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ resilience4j-helloworld ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ resilience4j-helloworld ---
+[INFO] Installing C:\Users\balaj\IdeaProjects\resilience4j-helloworld\pom.xml to C:\Users\balaj\.m2\repository\org\eduami\spring\resilience4j-helloworld\0.0.1-SNAPSHOT\resilience4j-helloworld-0.0.1-SNAPSHOT.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for resilience4j-helloworld 0.0.1-SNAPSHOT:
+[INFO] 
+[INFO] servicea ........................................... SUCCESS [  2.116 s]
+[INFO] circuitbreaker-error-calls ......................... SUCCESS [  0.088 s]
+[INFO] circuitbreaker-slow-calls .......................... SUCCESS [  0.399 s]
+[INFO] ratelimiter ........................................ SUCCESS [  0.412 s]
+[INFO] bulkhead ........................................... SUCCESS [  0.369 s]
+[INFO] retry .............................................. SUCCESS [  0.361 s]
+[INFO] resilience4j-helloworld ............................ SUCCESS [  0.006 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.035 s
+[INFO] Finished at: 2020-10-10T13:18:14+05:30
+[INFO] ------------------------------------------------------------------------
