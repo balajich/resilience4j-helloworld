@@ -29,10 +29,10 @@ Overview
 
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
-- Import **resilience4j-helloworld.jmx** and run **retry-**ServiceB**** thread group.
+- Import **resilience4j-helloworld.jmx** and run **retry-serviceb** thread group.
 - Observe **ServiceB** will generate 50% of errors
 - ![jmeterb](jmeterb.png "jmeterb")
-- run **retry-**ServiceB**** thread group.
+- run **retry-servicea** thread group.
 - Observe **ServiceA** will generate 100% of success even **ServiceB** returns errors, This is because when **ServiceA** gets error
 from **ServiceB** it retries.
 - ![jmetera](jmetera.png "jmetera")
