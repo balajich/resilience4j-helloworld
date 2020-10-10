@@ -33,7 +33,7 @@ is thrown.The user is served with HTTP status code 503 and asked to retry after 
 # Using JMeter to generate more than 5 concurrent calls
 - JMeter Script is provided to generate  calls
 -  Import **resilience4j-helloworld.jmx** and run **bulkhead** thread group.
-- Obeseve only 5 concurrent calls are successful rest of them fail with 500
+- Obeseve only 5 concurrent calls are successful rest of them fail with **503**
 - ![jmeter](jmeter.png "jmeter")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
