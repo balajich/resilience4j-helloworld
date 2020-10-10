@@ -8,10 +8,10 @@
         <version>2.3.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.eduami.spring.cberror</groupId>
-    <artifactId>serviceb</artifactId>
+    <groupId>org.eduami.spring.cbslow</groupId>
+    <artifactId>servicea</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>serviceb</name>
+    <name>servicea</name>
     <description>Demo project for resiliency</description>
 
     <properties>
@@ -22,6 +22,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot2</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

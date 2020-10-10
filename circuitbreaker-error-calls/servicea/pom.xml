@@ -8,7 +8,7 @@
         <version>2.3.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.eduami.spring</groupId>
+    <groupId>org.eduami.spring.cberror</groupId>
     <artifactId>servicea</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>servicea</name>

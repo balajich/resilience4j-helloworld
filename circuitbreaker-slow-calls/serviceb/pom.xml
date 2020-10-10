@@ -8,7 +8,7 @@
         <version>2.3.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.eduami.spring.cberror</groupId>
+    <groupId>org.eduami.spring.cbslow</groupId>
     <artifactId>serviceb</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>serviceb</name>
