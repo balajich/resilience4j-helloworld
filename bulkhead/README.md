@@ -1,4 +1,4 @@
-# Resilience4j- Limit of number of concurrent requests to RESTAPI using bulkhead 
+# Resilience4j- Session-2  Limit of number of concurrent requests to RESTAPI using bulkhead 
 In  this tutorial we are going to learn how to limit number of concurrent (parallel) requests that a restapi can handle. 
 
 Overview
