@@ -1,4 +1,5 @@
-# Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker 
+# Resilience4j Session-6  Monitoring CircuitBreak Events with Prometheus and visualizing them in Grafan
+a 
 In  this tutorial we are going to learn how to prevent cascading of failures from one service to other service using 
 **Resilience4j Circuit Breaker** module.
 

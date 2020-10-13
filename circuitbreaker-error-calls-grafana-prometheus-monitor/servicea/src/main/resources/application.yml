@@ -16,7 +16,7 @@ resilience4j:
                 minimumNumberOfCalls: 5
                 permittedNumberOfCallsInHalfOpenState: 3
                 automaticTransitionFromOpenToHalfOpenEnabled: true
-                waitDurationInOpenState: 1s
+                waitDurationInOpenState: 10s
         instances:
             greetingCircuit:
                 baseConfig: default
