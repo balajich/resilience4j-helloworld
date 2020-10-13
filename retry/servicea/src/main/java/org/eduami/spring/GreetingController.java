@@ -20,7 +20,7 @@ public class GreetingController {
     @Retry(name = "greetingRetry")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         System.out.println("Greeting method is invoked");
-        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/serviceBgreeting?name=" + name, String.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:8081/serviceBgreeting?name=" + name, String.class);
         //update cache
         return responseEntity;
     }

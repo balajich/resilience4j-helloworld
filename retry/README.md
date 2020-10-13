@@ -6,9 +6,12 @@ module.
 - This functionality can be achieved easily with annotation **@Retry** without writing explicit code. 
 
 Overview
-- User makes a call to greeting RESTAPI to get a greeting message.
-- **greeting** method  returns valid response only when called three times else it will throw **RuntimeException**.
-- This behavior can be easily handled with annotation **Retry**
+- User makes a call to get greeting message from  REST API ServiceA
+- ServiceA calls ServiceB to fetch greeting message
+- Because of some random issue 50% of calls to ServiceB results in failure
+- When ever ServiceA gets error message from ServiceB instead of returning error message to client,it will retry three times.
+- Even after three time if ServiceB returns error , error is retuned to user.
+- This entire functionality can be achieved without writing explicit code using Retry. 
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/retry](https://github.com/balajich/resilience4j-helloworld/tree/master/retry) 
 # Video
@@ -79,7 +82,7 @@ milliseconds. A retry will happen only when  **org.springframework.web.client.Ht
     @Retry(name = "greetingRetry")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
         System.out.println("Greeting method is invoked");
-        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:9090/**ServiceB**greeting?name=" + name, String.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:8081/**ServiceB**greeting?name=" + name, String.class);
         //update cache
         return responseEntity;
     }
