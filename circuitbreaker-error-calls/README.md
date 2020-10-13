@@ -1,4 +1,4 @@
-# Resilience4j Session-5  Preventing cascading of failures in REST API using Circuit Breaker 
+# Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker 
 In  this tutorial we are going to learn how to prevent cascading of failures from one service to other service using 
 **Resilience4j Circuit Breaker** module.
 
@@ -71,7 +71,6 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
 - slidingWindowType: Configures the type of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed
 - minimumNumberOfCalls: Configures the minimum number of calls which are required (per sliding window period) before the CircuitBreaker can calculate the error rate or slow call rate.
 - waitDurationInOpenState: The time that the CircuitBreaker should wait before transitioning from open to half-open.
-- maxAttempts: The maximum number of retry attempts
 - waitDuration: A fixed wait duration between retry attempts
 - retryExceptions: Configures a list of error classes that are recorded as a failure and thus are retried.
 - failureRateThreshold: Configures the failure rate threshold in percentage.
