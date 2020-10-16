@@ -77,6 +77,24 @@ Access Garafan UI and use admin/admin as credentails.
 - Observe Granfana dashboard for changes in circuit breaker events
 ![jmeter-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-jmeter-ui.png "jmeter-ui")
 # Code
+Instrument ServiceA to get meterics using dependency. pom.xml of *serviceA*
+```xml
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+```
+application.yml , Expose mertics endpoint from serviceA. 
+```yaml
+management.endpoints.web.exposure.include: '*'
+management.endpoint.health.show-details: always
+management.health.diskspace.enabled: false
+management.health.circuitbreakers.enabled: true
+management.health.ratelimiters.enabled: false
+management.metrics.tags.application: servicea
+management.metrics.distribution.percentiles-histogram.http.server.requests: true
+management.metrics.distribution.percentiles-histogram.resilience4j.circuitbreaker.calls: true
+```
 Please refer my previous repos for Circuitbreaker code etc, explaining the docker files and PQL is beyond the scope of
 this tutorial.
 # References
