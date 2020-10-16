@@ -53,7 +53,7 @@ Prometheus scrapes metrics from the endpoint "/actuator/prometheus"
 # Step 4: Prometheus UI
 View the UI to see that it is able to read metrics from ServiceA
 - http://localhost:9090/targets
-![prometheus-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-prometheus-ui.png "prometheus-ui")
+- ![prometheus-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-prometheus-ui.png "prometheus-ui")
 Few useful prometheus queries.
 - ```sum(resilience4j_circuitbreaker_state{state='closed'}) ``` Get sum of closed circuits
 - ```rate(resilience4j_circuitbreaker_calls_seconds_count{instance="localhost:8080",name="greetingCircuit"}[1m]) ```
@@ -70,12 +70,12 @@ Access Garafan UI and use admin/admin as credentails.
     - Access "home"
     - Import dashboard
     - Upload dashboard.json
-![Grafna-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-grafana-ui.png "grafane-ui")
+- ![Grafna-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-grafana-ui.png "grafane-ui")
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-grafana-prometheus-monitor-servicea** thread group.
 - Observe Granfana dashboard for changes in circuit breaker events
-![jmeter-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-jmeter-ui.png "jmeter-ui")
+- ![jmeter-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-jmeter-ui.png "jmeter-ui")
 # Code
 Instrument ServiceA to get meterics using dependency. pom.xml of *serviceA*
 ```xml
