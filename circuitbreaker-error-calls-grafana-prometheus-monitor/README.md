@@ -29,10 +29,10 @@ a cache.
 - Vagrant 2.2.9 or above- (To start,stop and manage virtual machines)
 - Docker version 19.03.13 or above
 - docker-compose version 1.18.0 or above
-# Build
+# Step 1: Build
 - ``` cd  resilience4j-helloworld\circuitbreaker-error-calls-grafana-prometheus-monitor ```
 - ``` mvn clean install ```
-# Running  Prometheus and Grafana in docker
+# Step 2: Running  Prometheus and Grafana in docker
 - ``` cd  resilience4j-helloworld\circuitbreaker-error-calls-grafana-prometheus-monitor ```
 - ``` vagrant up ``` # wait till the virtual machine is up
 - ```vagrant ssh -- -R 8080:localhost:8080 ``` # Take ssh to virtual machine and route 
@@ -43,109 +43,44 @@ docker in the virtual machine should be able to access ServiceB tomcat to fetch 
 - Start Prometheus and Grafana ``` docker-compose up -d ``` # Run them in background mode
 **Note:** If you are running docker on physical machine, Please ignore vagrant and ssh forward commands. 
 
-# Run Services
+# Step 3: Run Services
 - ``` cd  resilience4j-helloworld\circuitbreaker-error-calls-grafana-prometheus-monitor ```
 - ServiceA: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
 - ServiceB: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
-
+# Prometheus metrics endpoint on ServiceA (Tomcat)
+- ``` curl -l -s http://localhost:8080/actuator/prometheus ```
+Prometheus scrapes metrics from the endpoint "/actuator/prometheus"
+# Step 4: Prometheus UI
+View the UI to see that it is able to read metrics from ServiceA
+- http://localhost:9090/targets
+![prometheus-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-prometheus-ui.png "prometheus-ui")
+Few useful prometheus queries.
+- ```sum(resilience4j_circuitbreaker_state{state='closed'}) ``` Get sum of closed circuits
+- ```rate(resilience4j_circuitbreaker_calls_seconds_count{instance="localhost:8080",name="greetingCircuit"}[1m]) ```
+Counters to track how  many  circuitbreaker events have happened
+# Step 5: Grafana UI
+Access Garafan UI and use admin/admin as credentails.
+- open ```http://localhost:3000/``` 
+- **Configure integration with Prometheus**
+    - Access configuration
+    - Add data source
+    - Select Prometheus
+    - Use url "http://localhost:9090" and access with value "Browser"
+- **Configure dashboard**
+    - Access "home"
+    - Import dashboard
+    - Upload dashboard.json
+![Grafna-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-prometheus-ui.png "grafane-ui")
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
-- Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-serviceb** thread group.
-- Observe serviceB will generate 50% of errors
-- ![jmeterb](jmeterb.png "jmeterb")
-- run **circuitbreaker-error-calls-servicea** thread group.
-- Observe serviceA will generate 100% of success even serviceB returns errors, Further more it doesn't makes calls 
-to serviceB until it recovers.
-- ![jmetera](jmetera.png "jmetera")
+- Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-grafana-prometheus-monitor-servicea** thread group.
+- Observe Granfana dashboard for changes in circuit breaker events
+![jmeter-ui](circuitbreaker-error-calls-grafana-prometheus-monitor-jmeter-ui.png "jmeter-ui")
 # Code
-Include following artifacts as dependency for spring boot restapi serviceA application. **resilience4j-spring-boot2,
-spring-boot-starter-actuator,spring-boot-starter-aop**
-**pom.xml** for serviceA
-```xml
-<dependency>
-    <groupId>io.github.resilience4j</groupId>
-    <artifactId>resilience4j-spring-boot2</artifactId>
-    <version>1.4.0</version>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-actuator</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-aop</artifactId>
-</dependency>
-```
-In **application.yml** of serviceA define the behavior of Circuit Breaker module
-- slidingWindowSize: Configures the size of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed.
-- slidingWindowType: Configures the type of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed
-- minimumNumberOfCalls: Configures the minimum number of calls which are required (per sliding window period) before the CircuitBreaker can calculate the error rate or slow call rate.
-- waitDurationInOpenState: The time that the CircuitBreaker should wait before transitioning from open to half-open.
-- maxAttempts: The maximum number of retry attempts
-- waitDuration: A fixed wait duration between retry attempts
-- retryExceptions: Configures a list of error classes that are recorded as a failure and thus are retried.
-- failureRateThreshold: Configures the failure rate threshold in percentage.
-```yaml
- resilience4j:
-     circuitbreaker:
-         configs:
-             default:
-                 slidingWindowSize: 10
-                 slidingWindowType: COUNT_BASED
-                 minimumNumberOfCalls: 5
-                 permittedNumberOfCallsInHalfOpenState: 3
-                 automaticTransitionFromOpenToHalfOpenEnabled: true
-                 waitDurationInOpenState: 1s
-         instances:
-             greetingCircuit:
-                 baseConfig: default
-                 failureRateThreshold: 50
-                 recordExceptions:
-                     - org.springframework.web.client.HttpServerErrorException
-```
-```java
- @GetMapping("/greeting")
-    @CircuitBreaker(name = "greetingCircuit", fallbackMethod = "greetingFallBack")
-    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:8081/serviceBgreeting?name=" + name, String.class);
-        //update cache
-        cache = responseEntity.getBody().toString();
-        return responseEntity;
-    }
-
-    //Invoked when circuit is in open state
-    public ResponseEntity greetingFallBack(String name, io.github.resilience4j.circuitbreaker.CallNotPermittedException ex) {
-        System.out.println("Circuit is in open state no further calls are accepted");
-        //return data from cache
-        return ResponseEntity.ok().body(cache);
-    }
-
-    //Invoked when call to serviceB failed
-    public ResponseEntity greetingFallBack(String name, HttpServerErrorException ex) {
-        System.out.println("Exception occurred when call calling service B");
-        //return data from cache
-        return ResponseEntity.ok().body(cache);
-    }
-```
-ServiceB is a simple rest api application, which generates 50% of faiulres
-```java
-Random random = new Random(-6732303926L);
-    @GetMapping("/serviceBgreeting")
-    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "serviceB") String name) {
-        return generateErrorBehavior(name);
-    }
-
-    private ResponseEntity generateErrorBehavior(String name) {
-        int i = random.nextInt(2);
-        if (i == 0) {
-            System.out.println("Service B Generated Exception");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Service B Generated Exception");
-        }
-        return ResponseEntity.ok().body("Hello " + name);
-    }
-```
-
+Please refer my previous repos for Circuitbreaker code etc, explaining the docker files and PQL is beyond the scope of
+this tutorial.
 # References
+- https://github.com/resilience4j/resilience4j-spring-boot2-demo
 - https://resilience4j.readme.io/docs/circuitbreaker
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 - https://www.baeldung.com/resilience4j
