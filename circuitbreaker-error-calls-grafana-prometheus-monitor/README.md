@@ -105,7 +105,7 @@ this tutorial.
 - Hands-On Microservices with Spring Boot and Spring Cloud: Build and deploy Java microservices 
 using Spring Cloud, Istio, and Kubernetes -Magnus Larsson
 # Weblink
-- 
+- https://eduami.org/Resilience4j/circuitbreaker-error-calls-grafana-prometheus-monitor.html
 # Next Tutorial
 How to deploy microservices using docker
 - https://github.com/balajich/spring-cloud-session-6-microservices-deployment-docker
