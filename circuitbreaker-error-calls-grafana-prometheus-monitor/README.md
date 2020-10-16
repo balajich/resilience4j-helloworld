@@ -22,7 +22,7 @@ a cache.
 [![Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
 - https://youtu.be/vKIELihjRjY**
 # Architecture
-![architecture](architecture.png "architecture")
+![architecture](circuitbreaker-error-calls-grafana-prometheus-monitor-architecture.png "architecture")
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
