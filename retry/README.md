@@ -15,8 +15,8 @@ Overview
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/retry](https://github.com/balajich/resilience4j-helloworld/tree/master/retry) 
 # Video
-[![Resilience4j Session-3  Making RESTAPI fault tolerant using Retry](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
-- https://youtu.be/vKIELihjRjY 
+[![Resilience4j Session-3  Making RESTAPI fault tolerant using Retry](https://img.youtube.com/vi/b6g5FqFuvrs/0.jpg)](https://www.youtube.com/watch?v=b6g5FqFuvrs)
+- https://youtu.be/b6g5FqFuvrs
 # Architecture
 ![architecture](retry-architecture.png "architecture")
 # Prerequisite
