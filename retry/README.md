@@ -112,6 +112,8 @@ milliseconds. A retry will happen only when  **org.springframework.web.client.Ht
 - https://www.baeldung.com/resilience4j
 - Hands-On Microservices with Spring Boot and Spring Cloud: Build and deploy Java microservices 
 using Spring Cloud, Istio, and Kubernetes -Magnus Larsson
+#Web Link
+- https://eduami.org/Resilience4j/retry.html
 # Next Tutorial
 How to deploy microservices using docker
 - https://github.com/balajich/spring-cloud-session-6-microservices-deployment-docker
