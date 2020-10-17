@@ -18,7 +18,7 @@ Overview
 [![Resilience4j Session-3  Making RESTAPI fault tolerant using Retry](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
 - https://youtu.be/vKIELihjRjY 
 # Architecture
-![architecture](architecture.png "architecture")
+![architecture](retry-architecture.png "architecture")
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
@@ -34,11 +34,11 @@ Overview
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **retry-serviceb** thread group.
 - Observe **ServiceB** will generate 50% of errors
-- ![jmeterb](jmeterb.png "jmeterb")
+- ![jmeterb](retry-jmeterb.png "jmeterb")
 - run **retry-servicea** thread group.
 - Observe **ServiceA** will generate 100% of success even **ServiceB** returns errors, This is because when **ServiceA** gets error
 from **ServiceB** it retries.
-- ![jmetera](jmetera.png "jmetera")
+- ![jmetera](retry-jmetera.png "jmetera")
 # Code
 Include following artifacts as dependency for spring boot restapi application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
