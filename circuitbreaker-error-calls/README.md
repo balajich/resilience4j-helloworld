@@ -22,11 +22,11 @@ a cache.
 [![Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
 - https://youtu.be/vKIELihjRjY**
 # Architecture
-![architecture](architecture.png "architecture")
+![architecture](circuitbreaker-error-calls-architecture.png "architecture")
 # Normal Call flow
-![normal](normal.png "normal")
+![normal](circuitbreaker-error-calls-normal.png "normal")
 # Call flow with Circuit Breaker
-![withcb](withcb.png "withcb")
+![withcb](circuitbreaker-error-calls-withcb.png "withcb")
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
@@ -42,11 +42,11 @@ a cache.
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-serviceb** thread group.
 - Observe serviceB will generate 50% of errors
-- ![jmeterb](jmeterb.png "jmeterb")
+- ![jmeterb](circuitbreaker-error-calls-jmeterb.png "jmeterb")
 - run **circuitbreaker-error-calls-servicea** thread group.
 - Observe serviceA will generate 100% of success even serviceB returns errors, Further more it doesn't makes calls 
 to serviceB until it recovers.
-- ![jmetera](jmetera.png "jmetera")
+- ![jmetera](circuitbreaker-error-calls-jmetera.png "jmetera")
 # Code
 Include following artifacts as dependency for spring boot restapi serviceA application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
