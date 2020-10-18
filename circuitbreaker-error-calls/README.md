@@ -2,19 +2,19 @@
 In  this tutorial we are going to learn how to prevent cascading of failures from one service to other service using 
 **Resilience4j Circuit Breaker** module.
 
-For example if a microservice A depends up on microservice B. For some reason microservice B is experiencing error 
-instead of repeatedly calling B, the microservice A should take a break (not calling) until B is completely or half recovered.   
+For example if a **ServiceA** depends up on **ServiceB**. For some reason **ServiceB** is experiencing error 
+instead of repeatedly calling **ServiceB**, the **ServiceA** should take a break (not calling) until **ServiceB** is completely or half recovered.   
  
 - Using **Circuit Breaker** we can prevent flow of failures to downstream/upstream.
 - This functionality can be achieved easily with annotation **@CircuitBreaker** without writing explicit code. 
 
 Overview
-- User makes a call to get greeting message from  REST API ServiceA
-- ServiceA calls ServiceB to fetch greeting message
-- Because of some random issue 50% of calls to ServiceB results in failure
-- When ever ServiceA gets error message from ServiceB instead of returning error message to client, it will return message from 
+- User makes a call to get greeting message from  REST API **ServiceA**
+- **ServiceA** calls **ServiceB** to fetch greeting message
+- Because of some random issue 50% of calls to **ServiceB** results in failure
+- When ever **ServiceA** gets error message from **ServiceB** instead of returning error message to client, it will return message from 
 a cache.
-- When ever error rate increases beyond 50% ServiceA doesn't call ServiceB until ServiceB recovers or **waitDurationInOpenState** is finished
+- When ever error rate increases beyond 50% **ServiceA** doesn't call **ServiceB** until **ServiceB** recovers or **waitDurationInOpenState** is finished
 - This entire functionality can be achieved with  **Circuit Breaker** pattern
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls](https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls) 
@@ -35,8 +35,8 @@ a cache.
 - ``` mvn clean install ```
 
 # Running 
-- ServiceA: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
-- ServiceB: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
+- **ServiceA**: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
+- **ServiceB**: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
 
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
@@ -116,7 +116,7 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
         return ResponseEntity.ok().body(cache);
     }
 ```
-ServiceB is a simple rest api application, which generates 50% of faiulres
+**ServiceB** is a simple rest api application, which generates 50% of faiulres
 ```java
 Random random = new Random(-6732303926L);
     @GetMapping("/serviceBgreeting")
