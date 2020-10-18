@@ -133,7 +133,8 @@ Random random = new Random(-6732303926L);
         return ResponseEntity.ok().body("Hello " + name);
     }
 ```
-
+# Weblink
+- https://eduami.org/Resilience4j/circuitbreaker-error-calls.html
 # References
 - https://resilience4j.readme.io/docs/circuitbreaker
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
