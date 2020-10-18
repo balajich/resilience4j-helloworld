@@ -41,16 +41,16 @@ a cache.
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **circuitbreaker-error-calls-serviceb** thread group.
-- Observe serviceB will generate 50% of errors
+- Observe **ServiceB** will generate 50% of errors
 - ![jmeterb](circuitbreaker-error-calls-jmeterb.png "jmeterb")
 - run **circuitbreaker-error-calls-servicea** thread group.
-- Observe serviceA will generate 100% of success even serviceB returns errors, Further more it doesn't makes calls 
-to serviceB until it recovers.
+- Observe **ServiceA** will generate 100% of success even **ServiceB** returns errors, Further more it doesn't makes calls 
+to **ServiceB** until it recovers.
 - ![jmetera](circuitbreaker-error-calls-jmetera.png "jmetera")
 # Code
-Include following artifacts as dependency for spring boot restapi serviceA application. **resilience4j-spring-boot2,
+Include following artifacts as dependency for spring boot restapi **ServiceA** application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
-**pom.xml** for serviceA
+**pom.xml** for **ServiceA**
 ```xml
 <dependency>
     <groupId>io.github.resilience4j</groupId>
@@ -66,7 +66,7 @@ spring-boot-starter-actuator,spring-boot-starter-aop**
     <artifactId>spring-boot-starter-aop</artifactId>
 </dependency>
 ```
-In **application.yml** of serviceA define the behavior of Circuit Breaker module
+In **application.yml** of **ServiceA** define the behavior of Circuit Breaker module
 - slidingWindowSize: Configures the size of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed.
 - slidingWindowType: Configures the type of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed
 - minimumNumberOfCalls: Configures the minimum number of calls which are required (per sliding window period) before the CircuitBreaker can calculate the error rate or slow call rate.
@@ -96,7 +96,7 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
  @GetMapping("/greeting")
     @CircuitBreaker(name = "greetingCircuit", fallbackMethod = "greetingFallBack")
     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:8081/serviceBgreeting?name=" + name, String.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:8081/**ServiceB**greeting?name=" + name, String.class);
         //update cache
         cache = responseEntity.getBody().toString();
         return responseEntity;
@@ -109,7 +109,7 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
         return ResponseEntity.ok().body(cache);
     }
 
-    //Invoked when call to serviceB failed
+    //Invoked when call to **ServiceB** failed
     public ResponseEntity greetingFallBack(String name, HttpServerErrorException ex) {
         System.out.println("Exception occurred when call calling service B");
         //return data from cache
@@ -120,7 +120,7 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
 ```java
 Random random = new Random(-6732303926L);
     @GetMapping("/serviceBgreeting")
-    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "serviceB") String name) {
+    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "**ServiceB**") String name) {
         return generateErrorBehavior(name);
     }
 
