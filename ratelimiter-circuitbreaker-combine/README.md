@@ -110,6 +110,7 @@ resilience4j:
          return ResponseEntity.ok().body(cache);
      }
  
+     //Invoked when Ratelimter is applied
      public ResponseEntity greetingFallBack(String name, io.github.resilience4j.ratelimiter.RequestNotPermitted ex) {
          System.out.println("Rate limit applied no further calls are accepted");
  
@@ -139,7 +140,7 @@ Random random = new Random(-6732303926L);
     }
 ```
 # Weblink
-- https://eduami.org/Resilience4j/circuitbreaker-error-calls.html
+- https://eduami.org/Resilience4j/ratelimiter-circuitbreaker-combine.html
 # References
 - https://resilience4j.readme.io/docs/circuitbreaker
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
