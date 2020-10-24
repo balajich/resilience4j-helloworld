@@ -2,17 +2,17 @@
 In  this tutorial we are going to learn how to prevent cascading of slowness from one service to other service using 
 **Resilience4j Circuit Breaker** module.
 
-For example if a microservice A depends up on microservice B. For some reason microservice B is experiencing slowness 
-instead of repeatedly calling B, the microservice A should take a break (not calling) until B is completely or half recovered.   
+For example if a **ServiceA** depends up on **ServiceB**. For some reason **ServiceB** is experiencing slowness 
+instead of repeatedly calling **ServiceB**, the **ServiceA** should take a break (not calling) until **ServiceB** is completely or half recovered.   
 
 - This functionality can be achieved easily with annotation **@CircuitBreaker** without writing explicit code. 
 
 Overview
-- User makes a call to get greeting message from  REST API ServiceA
-- ServiceA calls ServiceB to fetch greeting message
-- The usual response time of ServiceB is 10 milliseconds, Because of some random issue 50% of calls to ServiceB takes more than 2 seconds.
-- This slowness behavior of ServiceB shouldn't impact Service A.
-- When ever ServiceA sees 50% (out of 5 ) are taking more than 10 milliseconds, it is not going to call ServiceB and returns the response from cachce.
+- User makes a call to get greeting message from  REST API **ServiceA**
+- **ServiceA** calls **ServiceB** to fetch greeting message
+- The usual response time of **ServiceB** is 10 milliseconds, Because of some random issue 50% of calls to **ServiceB** takes more than 2 seconds.
+- This slowness behavior of **ServiceB** shouldn't impact **ServiceA**.
+- When ever **ServiceA** sees 50% (out of 5 ) are taking more than 10 milliseconds, it is not going to call **ServiceB** and returns the response from cachce.
 - This entire functionality can be achieved with  **Circuit Breaker** pattern
 # Source Code 
 - [https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls](https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls) 
@@ -20,11 +20,11 @@ Overview
 [![Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
 - https://youtu.be/vKIELihjRjY**
 # Architecture
-![architecture](architecture.png "architecture")
+![architecture](circuitbreaker-slow-calls-architecture.png "architecture")
 # Normal Call flow
-![normal](normal.png "normal")
+![normal](circuitbreaker-slow-calls-normal.png "normal")
 # Call flow with Circuit Breaker
-![withcb](withcb.png "withcb")
+![withcb](circuitbreaker-slow-calls-withcb.png "withcb")
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
@@ -33,24 +33,24 @@ Overview
 - ``` mvn clean install ```
 
 # Running 
-- ServiceA: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
-- ServiceB: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
+- **ServiceA**: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
+- **ServiceB**: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
 
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **circuitbreaker-slow-calls-serviceb** thread group.
 - This will generate 20 requests and Observe 50% of calls are taking 2 seconds and average response time 1.014 seconds
-- ![jmeterb](jmeterb.png "jmeterb")
+- ![jmeterb](circuitbreaker-slow-calls-jmeterb.png "jmeterb")
 - run **circuitbreaker-error-calls-servicea** thread group.
 - Observe the average response time is significantly dropped to 0.214 seconds
-- The reason for improvement in performance is. The ServiceA doesn't call ServiceB when there is a drop in performance instead
+- The reason for improvement in performance is. The **ServiceA** doesn't call **ServiceB** when there is a drop in performance instead
 it serves from a cache. 
-- ![jmetera](jmetera.png "jmetera")
+- ![jmetera](circuitbreaker-slow-calls-jmetera.png "jmetera")
 
 # Code
 Include following artifacts as dependency for spring boot restapi serviceA application. **resilience4j-spring-boot2,
 spring-boot-starter-actuator,spring-boot-starter-aop**
-**pom.xml** for serviceA
+**pom.xml** of **ServiceA**
 ```xml
 <dependency>
     <groupId>io.github.resilience4j</groupId>
@@ -114,7 +114,7 @@ In **application.yml** of serviceA define the behavior of Circuit Breaker module
          return ResponseEntity.ok().body(cache);
      }
 ```
-ServiceB is a simple rest api application, where 50% of calls take 2 seconds
+****ServiceB**** is a simple rest api application, where 50% of calls take 2 seconds
 ```java
 Random random = new Random(-6732303926L);
     @GetMapping("/serviceBgreeting")

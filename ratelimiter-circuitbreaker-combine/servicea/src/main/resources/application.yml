@@ -1,0 +1,27 @@
+resilience4j:
+    circuitbreaker:
+        circuitBreakerAspectOrder: 2
+        configs:
+            default:
+                slidingWindowSize: 10
+                slidingWindowType: COUNT_BASED
+                minimumNumberOfCalls: 5
+                permittedNumberOfCallsInHalfOpenState: 3
+                automaticTransitionFromOpenToHalfOpenEnabled: true
+                waitDurationInOpenState: 1s
+        instances:
+            greetingCircuit:
+                baseConfig: default
+                failureRateThreshold: 50
+                recordExceptions:
+                    - org.springframework.web.client.HttpServerErrorException
+    ratelimiter:
+        rateLimiterAspectOrder: 1
+        configs:
+            default:
+                limitForPeriod: 10
+                limitRefreshPeriod: 1s
+                timeoutDuration: 0
+        instances:
+            greetingRateLimit:
+                baseConfig: default

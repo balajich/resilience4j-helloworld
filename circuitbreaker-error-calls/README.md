@@ -144,3 +144,5 @@ using Spring Cloud, Istio, and Kubernetes -Magnus Larsson
 # Next Tutorial
 How to deploy microservices using docker
 - https://github.com/balajich/spring-cloud-session-6-microservices-deployment-docker
+
+Resilience4j Building Fault Tolerant REST API 

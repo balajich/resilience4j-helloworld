@@ -22,3 +22,4 @@ generated/
 /bulkhead/Resilience4j- Session-2  Limit of number of concurrent requests to RESTAPI using bulkhead.mp4
 /retry/Resilience4j- Session 3 Making REST API fault tolerant using Retry.mp4
 /.vagrant/
+/ratelimiter-circuitbreaker-combine/Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker.mp4
