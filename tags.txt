@@ -1,1 +1,1 @@
-Resilience4j,fault tolerant,Ratelimit,Bulkhead,Retry,Circuit Breaker,REST API, REST API Slowness
+Resilience4j,fault tolerant,Ratelimit,Bulkhead,Retry,Circuit Breaker,REST API, REST API Slowness,Resilience4j Combine Aspects

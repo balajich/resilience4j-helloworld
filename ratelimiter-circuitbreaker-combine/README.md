@@ -16,8 +16,8 @@ a cache.
 # Source Code 
 - https://github.com/balajich/resilience4j-helloworld/tree/master/ratelimiter-circuitbreaker-combine 
 # Video
-[![Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker](https://img.youtube.com/vi/_hCyRcJcCks/0.jpg)](https://www.youtube.com/watch?v=_hCyRcJcCks)
-- https://youtu.be/_hCyRcJcCks
+[![Resilience4j Session-6  Applying multiple patterns (aspects) to a single service](https://img.youtube.com/vi/ppOZ01vUhaw/0.jpg)](https://www.youtube.com/watch?v=ppOZ01vUhaw)
+- https://youtu.be/ppOZ01vUhaw
 # Architecture
 ![architecture](ratelimiter-circuitbreaker-combine-architecture.png "architecture")
 # Prerequisite

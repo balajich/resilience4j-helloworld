@@ -24,3 +24,4 @@ generated/
 /.vagrant/
 /ratelimiter-circuitbreaker-combine/Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker.mp4
 /circuitbreaker-slow-calls/Resilience4j Session-5  Preventing cascading of slowness in REST API using Circuit Breaker.mp4
+/ratelimiter-circuitbreaker-combine/Resilience4j Session-6  Applying multiple patterns (aspects) to a single service.mp4
