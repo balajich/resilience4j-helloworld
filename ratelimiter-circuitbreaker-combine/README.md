@@ -1,8 +1,9 @@
 # Resilience4j Session-6  Applying multiple patterns (aspects) to a single service 
-In  this tutorial we are going to learn how to can we add  both **Ratelimiter** and **CircuitBreaker** patterns to a single service. 
+In  this tutorial we are going to learn how to add  both **Ratelimiter** and **CircuitBreaker** patterns to a single service. 
 
 - Using **Ratelimiter** limit the number of call that a service can handle.
 - Using **Circuit Breaker** we can prevent flow of failures to downstream/upstream.
+
 Overview
 - User makes a call to get greeting message from  REST API **ServiceA**
 - Limit **ServiceA** to handle only 10 calls per second.
