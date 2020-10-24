@@ -24,7 +24,7 @@ a cache.
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
 # Build
-- ``` cd  resilience4j-helloworld\circuitbreaker-error-calls ```
+- ``` cd  resilience4j-helloworld\ratelimiter-circuitbreaker-combine ```
 - ``` mvn clean install ```
 
 # Running 
