@@ -15,10 +15,10 @@ Overview
 - When ever **ServiceA** sees 50% (out of 5 ) are taking more than 10 milliseconds, it is not going to call **ServiceB** and returns the response from cachce.
 - This entire functionality can be achieved with  **Circuit Breaker** pattern
 # Source Code 
-- [https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls](https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls) 
+- https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-slow-calls 
 # Video
-[![Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
-- https://youtu.be/vKIELihjRjY**
+[![Resilience4j Session-4  Preventing cascading of slowness in REST API using Circuit Breaker](https://img.youtube.com/vi/WKxV0bmA_eQ/0.jpg)](https://www.youtube.com/watch?v=WKxV0bmA_eQ)
+- https://youtu.be/WKxV0bmA_eQ
 # Architecture
 ![architecture](circuitbreaker-slow-calls-architecture.png "architecture")
 # Normal Call flow
