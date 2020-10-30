@@ -11,7 +11,7 @@ Overview
 - Because of some random issue 50% of calls to **ServiceB** results in failure
 - When ever **ServiceA** gets error message from **ServiceB** instead of returning error message to client, it will return message from 
 a cache.
-- When ever error rate increases beyond 50% **ServiceA** doesn't call **ServiceAB** until **ServiceB** recovers or **waitDurationInOpenState** is finished.
+- When ever error rate increases beyond 50% **ServiceA** doesn't call **ServiceB** until **ServiceB** recovers or **waitDurationInOpenState** is finished.
 - **ServiceA** uses **CircuitBreaker** module from **Resilience4j**. When ever there is a change in circuit state and event is generated.
 - For every 5 seconds interval Prometheus asks  **ServiceA** for Circuit Breaker events using REST API
 - For every 5 seconds interval Garafana updates its dashboard with newly generate event count.
