@@ -46,7 +46,7 @@ docker in the virtual machine should be able to access **ServiceB** tomcat to fe
 # Step 3: Run Services
 - ``` cd  resilience4j-helloworld\circuitbreaker-error-calls-grafana-prometheus-monitor ```
 - **ServiceA**: ```  java -jar .\servicea\target\servicea-0.0.1-SNAPSHOT.jar  ```
-- **ServiceB**: ```  java -jar .\serviceb\target\**ServiceB**-0.0.1-SNAPSHOT.jar  ```
+- **ServiceB**: ```  java -jar .\serviceb\target\serviceb-0.0.1-SNAPSHOT.jar  ```
 # Prometheus metrics endpoint on ServiceA (Tomcat)
 - ``` curl -l -s http://localhost:8080/actuator/prometheus ```
 Prometheus scrapes metrics from the endpoint "/actuator/prometheus"
