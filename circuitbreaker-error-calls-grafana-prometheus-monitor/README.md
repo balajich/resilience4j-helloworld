@@ -33,7 +33,7 @@ a cache.
 - ``` cd  resilience4j-helloworld\circuitbreaker-error-calls-grafana-prometheus-monitor ```
 - ``` mvn clean install ```
 # Step 2: Running  Prometheus and Grafana in docker
-- ``` cd  resilience4j-helloworld\circuitbreaker-error-calls-grafana-prometheus-monitor ```
+- ``` cd  resilience4j-helloworld ```
 - ``` vagrant up ``` # wait till the virtual machine is up
 - ```vagrant ssh -- -R 8080:localhost:8080 ``` # Take ssh to virtual machine and route 
 requests from guest 8080 to host 8080 using ssh tunnel. Prometheus that is running in
