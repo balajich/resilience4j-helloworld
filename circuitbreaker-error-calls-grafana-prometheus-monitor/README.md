@@ -17,10 +17,10 @@ a cache.
 - For every 5 seconds interval Garafana updates its dashboard with newly generate event count.
 **Note:** We are not going discuss details of Circuit Breaker in this session. Please refer to my previous sessions. 
 # Source Code 
-- [https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls](https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls) 
+- https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-error-calls-grafana-prometheus-monitor 
 # Video
-[![Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker](https://img.youtube.com/vi/vKIELihjRjY/0.jpg)](https://www.youtube.com/watch?v=vKIELihjRjY)
-- https://youtu.be/vKIELihjRjY**
+[![Resilience4j Session-4  Preventing cascading of failures in REST API using Circuit Breaker](https://img.youtube.com/vi/4ZVY099kF9A/0.jpg)](https://www.youtube.com/watch?v=4ZVY099kF9A)
+- https://youtu.be/4ZVY099kF9A
 # Architecture
 ![architecture](circuitbreaker-error-calls-grafana-prometheus-monitor-architecture.png "architecture")
 # Prerequisite
