@@ -15,21 +15,17 @@ Overview
 - When ever **ServiceA** sees a call to **ServiceB** taking more than 1 second, it cancels the call and return the data.
 - In our example we return data from cache for slow calls instead of giving exception to client.
 # Source Code 
-- https://github.com/balajich/resilience4j-helloworld/tree/master/circuitbreaker-slow-calls 
+- https://github.com/balajich/resilience4j-helloworld/tree/master/timelimiter-slow-calls 
 # Video
 [![Resilience4j Session-4  Preventing cascading of slowness in REST API using Circuit Breaker](https://img.youtube.com/vi/WKxV0bmA_eQ/0.jpg)](https://www.youtube.com/watch?v=WKxV0bmA_eQ)
 - https://youtu.be/WKxV0bmA_eQ
 # Architecture
-![architecture](circuitbreaker-slow-calls-architecture.png "architecture")
-# Normal Call flow
-![normal](circuitbreaker-slow-calls-normal.png "normal")
-# Call flow with Circuit Breaker
-![withcb](circuitbreaker-slow-calls-withcb.png "withcb")
+![architecture](timelimiter-slow-calls-architecture.png "architecture")
 # Prerequisite
 - JDK 1.8 or above
 - Apache Maven 3.6.3 or above
 # Build
-- ``` cd  resilience4j-helloworld\circuitbreaker-slow-calls ```
+- ``` cd  resilience4j-helloworld\timelimiter-slow-calls ```
 - ``` mvn clean install ```
 
 # Running 
@@ -38,7 +34,7 @@ Overview
 
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
-- Import **resilience4j-helloworld.jmx** and run **circuitbreaker-slow-calls-serviceb** thread group.
+- Import **resilience4j-helloworld.jmx** and run **timelimiter-slow-calls** thread group.
 - This will generate 20 requests and Observe 50% of calls are taking 2 seconds and average response time 1.014 seconds
 - ![jmeterb](circuitbreaker-slow-calls-jmeterb.png "jmeterb")
 - run **circuitbreaker-error-calls-servicea** thread group.

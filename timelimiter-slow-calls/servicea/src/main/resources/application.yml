@@ -15,6 +15,6 @@ resilience4j:
         instances:
             greetingBulkhead:
                 baseConfig: default
-logging:
-    level:
-        root: debug
+#logging:
+#    level:
+#        root: debug
