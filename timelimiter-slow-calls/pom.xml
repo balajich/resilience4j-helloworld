@@ -7,19 +7,13 @@
 
     <!-- parent pom -->
     <groupId>org.eduami.spring</groupId>
-    <artifactId>resilience4j-helloworld</artifactId>
+    <artifactId>timelimiter-slow-calls</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <!-- sub modules -->
     <modules>
-        <module>circuitbreaker-error-calls</module>
-        <module>circuitbreaker-slow-calls</module>
-        <module>timelimiter-slow-calls</module>
-		<module>ratelimiter</module>
-        <module>bulkhead</module>
-		<module>retry</module>
-		<module>ratelimiter-circuitbreaker-combine</module>
-		<module>circuitbreaker-error-calls-grafana-prometheus-monitor</module>
+       <module>servicea</module>
+       <module>serviceb</module>
     </modules>
 
 </project>

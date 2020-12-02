@@ -1,0 +1,20 @@
+resilience4j:
+    timelimiter:
+        configs:
+            default:
+                timeoutDuration: 1000
+                cancelRunningFuture: true
+        instances:
+            timelimiterSlow:
+                baseConfig: default
+    bulkhead:
+        configs:
+            default:
+                maxConcurrentCalls: 5
+                maxWaitDuration: 0
+        instances:
+            greetingBulkhead:
+                baseConfig: default
+logging:
+    level:
+        root: debug
