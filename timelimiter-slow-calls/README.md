@@ -35,13 +35,8 @@ Overview
 # Using JMeter to test environment
 - JMeter Script is provided to generate call.
 - Import **resilience4j-helloworld.jmx** and run **timelimiter-slow-calls** thread group.
-- This will generate 20 requests and Observe 50% of calls are taking 2 seconds and average response time 1.014 seconds
-- ![jmeterb](circuitbreaker-slow-calls-jmeterb.png "jmeterb")
-- run **circuitbreaker-error-calls-servicea** thread group.
-- Observe the average response time is significantly dropped to 0.214 seconds
-- The reason for improvement in performance is. The **ServiceA** doesn't call **ServiceB** when there is a drop in performance instead
-it serves from a cache. 
-- ![jmetera](circuitbreaker-slow-calls-jmetera.png "jmetera")
+- This will generate 10 requests
+- ![jmetera](timelimiter-slow-calls-jmetera.png "jmetera")
 
 # Code
 Include following artifacts as dependency for spring boot restapi serviceA application. **resilience4j-spring-boot2,
@@ -62,81 +57,83 @@ spring-boot-starter-actuator,spring-boot-starter-aop**
     <artifactId>spring-boot-starter-aop</artifactId>
 </dependency>
 ```
-In **application.yml** of serviceA define the behavior of Circuit Breaker module
-- slidingWindowSize: Configures the size of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed.
-- slidingWindowType: Configures the type of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed
-- minimumNumberOfCalls: Configures the minimum number of calls which are required (per sliding window period) before the CircuitBreaker can calculate the error rate or slow call rate.
-- waitDurationInOpenState: The time that the CircuitBreaker should wait before transitioning from open to half-open.
-- slowCallRateThreshold: Configures a threshold in percentage. The CircuitBreaker considers a call as slow when the call duration is greater than slowCallDurationThreshold
-- slowCallDurationThreshold: Configures the duration threshold above which calls are considered as slow and increase the rate of slow calls.
+In **application.yml** of serviceA define the behavior of TimeLimiter and Bulkhead module
+- timeoutDuration- The amount time calling service needs to wait before generating timeout exception
+- cancelRunningFuture- Cancel the Running Feature object
+
+**Note**: Bulkhead module is added because TimeLimiter needs separate execution thread instead of request thread
 ```yaml
- resilience4j:
-     circuitbreaker:
-         configs:
-             default:
-                 slidingWindowSize: 10
-                 slidingWindowType: COUNT_BASED
-                 minimumNumberOfCalls: 5
-                 permittedNumberOfCallsInHalfOpenState: 3
-                 automaticTransitionFromOpenToHalfOpenEnabled: true
-                 waitDurationInOpenState: 5s
-         instances:
-             greetingCircuitSlow:
-                 baseConfig: default
-                 slowCallRateThreshold: 50
-                 slowCallDurationThreshold: 10ms
+resilience4j:
+    timelimiter:
+        configs:
+            default:
+                timeoutDuration: 1000
+                cancelRunningFuture: true
+        instances:
+            timelimiterSlow:
+                baseConfig: default
+    bulkhead:
+        configs:
+            default:
+                maxConcurrentCalls: 5
+                maxWaitDuration: 0
+        instances:
+            greetingBulkhead:
+                baseConfig: default
 ```
+**Annotation Approach**: Greeting request controller of **ServiceA**
 ```java
  @GetMapping("/greeting")
-     @CircuitBreaker(name = "greetingCircuitSlow", fallbackMethod = "greetingFallBack")
-     public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-         ResponseEntity responseEntity = restTemplate.getForEntity("http://localhost:8081/serviceBgreeting?name=" + name, String.class);
-         //update cache
-         cache = responseEntity.getBody().toString();
-         return responseEntity;
+     @TimeLimiter(name = "timelimiterSlow", fallbackMethod = "greetingFallBack")
+     @Bulkhead(name = "greetingBulkhead", fallbackMethod = "greetingFallBack", type = Bulkhead.Type.THREADPOOL)
+     public CompletableFuture<String> greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+         String result = restTemplate.getForEntity("http://localhost:8081/serviceBgreeting?name=" + name, String.class).getBody().toString();
+         cache = result;//update cache
+         return CompletableFuture.completedFuture(result);
      }
  
-     //Invoked when circuit is in open state
-     public ResponseEntity greetingFallBack(String name, io.github.resilience4j.circuitbreaker.CallNotPermittedException ex) {
-         System.out.println("Circuit is in open state no further calls are accepted");
-         //return data from cache
-         return ResponseEntity.ok().body(cache);
-     }
  
-     //Invoked when call to serviceB failed
-     public ResponseEntity greetingFallBack(String name, HttpServerErrorException ex) {
-         System.out.println("Exception occurred when call calling service B");
+     //Invoked when call to serviceB timeout
+     private CompletableFuture<String> greetingFallBack(String name, Exception ex) {
+         System.out.println("Call to serviceB is timed out");
          //return data from cache
-         return ResponseEntity.ok().body(cache);
+         return CompletableFuture.completedFuture(cache);
      }
 ```
-****ServiceB**** is a simple rest api application, where 50% of calls take 2 seconds
+**Higher order decorator functions**: Greeting request controller functional style of **ServiceA**
 ```java
-Random random = new Random(-6732303926L);
-    @GetMapping("/serviceBgreeting")
-    public ResponseEntity greeting(@RequestParam(value = "name", defaultValue = "serviceB") String name) {
-        return generateSlowBehavior(name);
-    }
+ TimeLimiterConfig config = TimeLimiterConfig.custom()
+                                                .timeoutDuration(Duration.ofSeconds(1))
+                                                .cancelRunningFuture(true)
+                                                .build();
+    private String cache = null;
 
-    private ResponseEntity generateSlowBehavior(String name) {
-        int i = random.nextInt(2);
-        if (i == 0) {
-            try {
-                Thread.sleep(2*1000);//sleep for two seconds
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
-        }//end of if
-        return ResponseEntity.ok().body("Hello " + name);
+    @Autowired
+    RestTemplate restTemplate;
+
+    @GetMapping("/greetingFunctional")
+    public ResponseEntity<String> greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        String result = null;
+        try {
+            TimeLimiter timeLimiter = TimeLimiter.of(config);
+            result = timeLimiter.executeFutureSupplier(
+                    () -> CompletableFuture.supplyAsync(() -> restTemplate.getForEntity("http://localhost:8081/serviceBgreeting?name=" + name, String.class).getBody()));
+            cache = result;
+        } catch (Exception e) {
+            // request time out
+            result = cache;
+
+        }
+        return ResponseEntity.ok().body(result);
     }
 ```
-
+# Important Notes
+- To decorate a TimeLimiter the method needs to return Future
+- TimeLimiter annotation cannot cancel Future
 # References
-- https://resilience4j.readme.io/docs/circuitbreaker
-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+- https://resilience4j.readme.io/docs/timeout
+- https://reflectoring.io/time-limiting-with-resilience4j/
 - https://www.baeldung.com/resilience4j
-- Hands-On Microservices with Spring Boot and Spring Cloud: Build and deploy Java microservices 
-using Spring Cloud, Istio, and Kubernetes -Magnus Larsson
 # Next Tutorial
 How to deploy microservices using docker
 - https://github.com/balajich/spring-cloud-session-6-microservices-deployment-docker
