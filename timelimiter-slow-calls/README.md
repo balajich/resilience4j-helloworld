@@ -17,8 +17,8 @@ Overview
 # Source Code 
 - https://github.com/balajich/resilience4j-helloworld/tree/master/timelimiter-slow-calls 
 # Video
-[![Resilience4j Session-4  Preventing cascading of slowness in REST API using Circuit Breaker](https://img.youtube.com/vi/WKxV0bmA_eQ/0.jpg)](https://www.youtube.com/watch?v=WKxV0bmA_eQ)
-- https://youtu.be/WKxV0bmA_eQ
+[![Resilience4j Session-8 limit the amount of time spent calling a remote service](https://img.youtube.com/vi/ZqQiyiVDBc0/0.jpg)](https://www.youtube.com/watch?v=ZqQiyiVDBc0)
+- https://youtu.be/ZqQiyiVDBc0
 # Architecture
 ![architecture](timelimiter-slow-calls-architecture.png "architecture")
 # Prerequisite
