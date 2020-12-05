@@ -19,7 +19,7 @@ public class GreetingController {
         int i = random.nextInt(2);
         if (i == 0) {
             try {
-                Thread.sleep(20*1000);//sleep for two seconds
+                Thread.sleep(2*1000);//sleep for two seconds
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
             }

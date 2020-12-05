@@ -15,9 +15,9 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 public class GreetingControllerFunctionalStyle {
     TimeLimiterConfig config = TimeLimiterConfig.custom()
-                                                .timeoutDuration(Duration.ofSeconds(1))
-                                                .cancelRunningFuture(true)
-                                                .build();
+            .timeoutDuration(Duration.ofSeconds(1))
+            .cancelRunningFuture(true)
+            .build();
     private String cache = null;
 
     @Autowired
@@ -33,12 +33,12 @@ public class GreetingControllerFunctionalStyle {
             cache = result;
         } catch (Exception e) {
             // request time out
+            System.out.println("Time out exception : "+ e);
             result = cache;
 
         }
         return ResponseEntity.ok().body(result);
     }
-
 
 
 }
