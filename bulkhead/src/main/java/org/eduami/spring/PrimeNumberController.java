@@ -33,7 +33,7 @@ public class PrimeNumberController {
 
     /**
      * This function takes really long time for larger numbers
-     * It has worst time complexity of O(n!)
+     * It has Horrible time complexity of O(n!)
      * @param n
      * @return
      */
